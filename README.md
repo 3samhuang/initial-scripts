@@ -11,4 +11,6 @@ bash <(curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/ma
 ### 清理comfyui output
 ```
 curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/clean-comfyui-outputs.sh | bash
+curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/clean-comfyui-outputs.sh | bash -s -- [options]
+curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/clean-comfyui-outputs.sh | bash -s -- --dry-run
 ```
