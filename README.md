@@ -14,3 +14,7 @@ curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/clea
 curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/clean-comfyui-outputs.sh | bash -s -- [options]
 curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/clean-comfyui-outputs.sh | bash -s -- --dry-run
 ```
+### 找檔案
+```
+curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/check_comfyui_models.sh | bash
+```
