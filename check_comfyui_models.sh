@@ -5,10 +5,9 @@
 SEARCH_DIR="${1:-/data01/comfyui_data/models/}"
 
 MODELS=(
-    "flux_lustly-ai_v1.safetensors"
-    "Male_Nude_and_Genital_Anatomy_for_Flux_1_Dev.safetensors"
-    "clothes_remover_v0.safetensors"
-    "flux_nsfw_v3.safetensors"
+    "umt5-xxl-encoder-Q3_K_M.gguf"
+    "Wan2.2-I2V-A14B-HighNoise-Q4_K_M.gguf"
+    "Wan2.2-I2V-A14B-LowNoise-Q4_K_M.gguf"
 )
 
 [ ! -d "$SEARCH_DIR" ] && echo "Error: Directory not found: $SEARCH_DIR" && exit 1
