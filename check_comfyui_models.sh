@@ -5,9 +5,8 @@
 SEARCH_DIR="${1:-/data01/comfyui_data/models/}"
 
 MODELS=(
-    "umt5-xxl-encoder-Q3_K_M.gguf"
-    "Wan2.2-I2V-A14B-HighNoise-Q4_K_M.gguf"
-    "Wan2.2-I2V-A14B-LowNoise-Q4_K_M.gguf"
+    "Wan2.2-I2V-A14B-LowNoise-Q3_K_M.gguf"
+    "Wan2.2-I2V-A14B-HighNoise-Q3_K_M.gguf"
 )
 
 [ ! -d "$SEARCH_DIR" ] && echo "Error: Directory not found: $SEARCH_DIR" && exit 1
