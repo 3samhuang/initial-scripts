@@ -1,38 +1,56 @@
-#!/bin/bash
-
-# 當任何命令失敗時，立即終止腳本
+!/bin/bash
 set -e
 
-echo "=== 更新系統並安裝 make ==="
-# 執行前先更新套件列表是個好習慣
-cd /opt
+echo "=== 更新系統並安裝 make、git ==="
 sudo apt update
-sudo apt install make -y
+sudo apt install -y make git wget
 
-echo "=== 下載並安裝 Go ==="
-# 移除舊的 Go 安裝，確保環境乾淨
+echo "=== 安裝 Go ==="
 sudo rm -rf /usr/local/go
-# 下載 Go 語言壓縮檔
+cd /opt
 wget https://go.dev/dl/go1.25.1.linux-amd64.tar.gz
-# 解壓縮到 /usr/local
 sudo tar -C /usr/local -xzf go1.25.1.linux-amd64.tar.gz
 
-echo "=== 設定 Go 環境變數 ==="
-# 將 Go 的執行路徑加入 PATH
 export PATH=$PATH:/usr/local/go/bin
-# 顯示版本以確認安裝成功
+
+echo "Go version:"
 go version
 
 echo "=== 下載並編譯 pushprox ==="
-# 克隆 pushprox 倉庫
+cd /opt
+sudo rm -rf pushprox
 git clone https://github.com/prometheus-community/pushprox.git
-# 進入專案目錄
-cd pushprox/
-# 使用 make 進行編譯
+cd pushprox
 make build
 
-# 啟動 pushprox-client，並指定代理伺服器 URL
-# 輸出導向 /dev/null，並在背景運行
-nohup ./pushprox-client --proxy-url=http://10.200.1.8:8080/ > /dev/null 2>client.log &
+echo "=== 建立 systemd 服務檔 ==="
+SERVICE_FILE="/etc/systemd/system/pushprox-client.service"
 
-ps aux | grep pushprox
+sudo bash -c "cat > $SERVICE_FILE" <<EOF
+[Unit]
+Description=PushProx Client
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/pushprox
+ExecStart=/opt/pushprox/pushprox-client --proxy-url=http://10.200.1.8:8080/
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/pushprox-client.log
+StandardError=append:/var/log/pushprox-client-error.log
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+echo "=== 重新載入 systemd ==="
+sudo systemctl daemon-reload
+
+echo "=== 啟用並啟動 pushprox-client ==="
+sudo systemctl enable pushprox-client
+sudo systemctl start pushprox-client
+
+echo "=== 完成！目前服務狀態 ==="
+sudo systemctl status pushprox-client --no-pager
