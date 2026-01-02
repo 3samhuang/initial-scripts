@@ -18,3 +18,7 @@ curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/clea
 ```
 curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/check_comfyui_models.sh | bash
 ```
+### 建立user
+```
+curl -sSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/create_devops_user.sh | bash
+```
