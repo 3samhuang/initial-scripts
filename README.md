@@ -22,3 +22,7 @@ curl -fsSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/chec
 ```
 curl -sSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/create_devops_user.sh | bash
 ```
+### 安裝clamav
+```
+curl -sSL https://raw.githubusercontent.com/3samhuang/initial-scripts/main/install-clamav.sh | sudo bash
+```
